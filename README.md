@@ -185,7 +185,28 @@ If all works, you can see the next page
 
 ##### Create first setting by Form
 
-To configure the service, you must fill the fields in the previous image. The next step is save the apiKey. 
+To configure the service, you must fill the fields in the previous image. You must have 2 endpoints with the following structure:
+
+For listening to a subscription:
+
+```sh
+PUT
+http://somedomain.com/success
+{
+    “email”:”email@gmail.com”
+}
+```
+
+For listening to a cancelation:
+```sh
+PUT
+http://somedomain.com/cancel
+{
+    “email”:”email@gmail.com”
+}
+```
+
+The next step is save the apiKey.  
 
 ![alt text](https://raw.github.com/supereze/microstripe/master/apiKey.png)
 
