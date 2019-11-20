@@ -1,0 +1,61 @@
+<!doctype html>
+      <head>
+            <title>Stripe Microservice</title>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      </head>
+      <body>
+            <div class="container">
+            <br>
+            <h2>Stripe Microservice</h2>
+            <br>
+            <form action="settings" method="post" role="form">
+            <div class="form-group">
+                  <label for="name">*Nombre del Proyecto:</label>
+            <input type="text" class="form-control" id="project" name="project" placeholder="Nombre del Proyecto" required>
+            
+            <label for="email">*Correo electronico:</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Correo electronico" required>
+            
+            <label for="productionKey">*Llave de producción:</label>
+            <input type="text" class="form-control" id="productionKey" name="productionKey" placeholder="Llave de producción" required>
+
+            <label for="developKey">*Llave de desarrollo:</label>
+            <input type="text" class="form-control" id="developKey" name="developKey" placeholder="Llave de desarrollo" required>
+
+            <!-- Rounded switch -->
+            <label for="inProduction">*En producción:</label>
+            <br>
+            <label class="switch">
+                  <input type="checkbox" id="inProduction" name="inProduction">
+                  <span class="slider round"></span>
+            </label>
+
+            <br>
+            <label for="subProductName">*Nombre del producto:</label>
+            <input type="text" class="form-control" id="subProductName" name="subProductName" placeholder="Nombre del producto" required>
+            
+            <label for="subPlanAmount">*Precio del plan:</label>
+            <input type="number" step="0.01" class="form-control" id="subPlanAmount" name="subPlanAmount" placeholder="Precio del plan" required>
+
+            <label for="subPlanCurrency">*Tipo de moneda:</label>
+            <input type="text" class="form-control" id="subPlanCurrency" name="subPlanCurrency" placeholder="mxn" required>
+            
+            <label for="subPlanInterval">*Intervalo:</label>
+            <input type="text" class="form-control" id="subPlanInterval" name="subPlanInterval" placeholder="month" required>
+
+            <label for="successfulWebhook">*Webhook de subscripción:</label>
+            <input type="text" class="form-control" id="successfulWebhook" name="successfulWebhook" placeholder="Webhook de subscripción" required>
+
+            <label for="cancelWebhook">*Webhook de cancelación:</label>
+            <input type="text" class="form-control" id="cancelWebhook" name="cancelWebhook" placeholder="Webhook de cancelación" required>
+            
+            <p>Los campos con * son obligatorios</p>
+            </div>
+            <button type="submit" class="btn btn-success">Guardar</button>
+            </form>
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+      </body>
+</html>
