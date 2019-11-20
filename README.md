@@ -57,7 +57,7 @@ Requirements installation and starting the server.
 
 ```sh
 $ git clone https://github.com/youruser/microstripe.git
-$ cd mircroservice/app
+$ cd mircrostripe/app
 $ pip install -r requirements.txt
 ```
 
@@ -79,7 +79,7 @@ Ubuntu gunicorn installation
 
 ```sh
 $pip install gunicorn
-$ cd mircroservice/app
+$ cd mircrostripe/app
 $gunicorn run:app
 ctrl + c to stop gunicorn
 ```
