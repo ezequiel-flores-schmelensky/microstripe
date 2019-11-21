@@ -170,7 +170,7 @@ class StripeController():
       else:
         return setting
       
-      setting = {}
+      #setting = {}
       if request.method == 'GET': 
         return SettingModel().findOne(id)
       if request.method == 'PATCH':
