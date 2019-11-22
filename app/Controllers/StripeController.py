@@ -314,7 +314,7 @@ class StripeController():
           print("customer: " + event["data"]["object"]["customer"])
           client = StripeClientModel().findOneByCustomerId(event["data"]["object"]["customer"])
           if client["code"] != 200:
-            print("Error: "+ str(clien["response"]))
+            print("Error: "+ str(client["response"]))
           try:   
             print( "CancelWebhook: " + str(setting["cancelWebhook"])) 
             response = requests.put(setting["cancelWebhook"], json={"correo":client["response"]["email"]})
