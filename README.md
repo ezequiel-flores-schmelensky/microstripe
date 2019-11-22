@@ -80,7 +80,7 @@ Ubuntu gunicorn installation
 ```sh
 $pip install gunicorn
 $ cd mircrostripe/app
-$gunicorn run:app
+$gunicorn app:app
 ctrl + c to stop gunicorn
 ```
  
