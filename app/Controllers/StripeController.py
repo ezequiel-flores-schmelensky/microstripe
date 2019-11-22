@@ -166,26 +166,24 @@ class StripeController():
       setting = SettingModel().findOne(id)
       if setting["code"] == 200:
         setting = setting["response"]
-        #stripe.api_key = setting["productionKey"] if setting["inProduction"] else setting["developKey"]
       else:
         return setting
       
-      #setting = {}
       if request.method == 'GET': 
         return SettingModel().findOne(id)
       if request.method == 'PATCH':
         data = request.get_json()
-        if data["productionKey"] is not None and setting["productionKey"] != data["productionKey"]:
+        if "productionKey" in data and setting["productionKey"] != data["productionKey"]:
           setting["productionKey"] = data["productionKey"]
-        if data["developKey"] is not None and setting["developKey"] != data["developKey"]:
+        if "developKey" in data and setting["developKey"] != data["developKey"]:
           setting["developKey"] = data["developKey"]
-        if data["inProduction"] is not None and setting["inProduction"] != data["inProduction"]:  
+        if "inProduction" in data and setting["inProduction"] != data["inProduction"]:  
           setting["inProduction"] = data["inProduction"]
-        if data["successfulWebhook"] is not None and setting["successfulWebhook"] != data["successfulWebhook"]:  
+        if "successfulWebhook" in data and setting["successfulWebhook"] != data["successfulWebhook"]:  
           setting["successfulWebhook"] = data["successfulWebhook"]
-        if data["cancelWebhook"] is not None and setting["cancelWebhook"] != data["cancelWebhook"]:  
+        if "cancelWebhook" in data and setting["cancelWebhook"] != data["cancelWebhook"]:  
           setting["cancelWebhook"] = data["cancelWebhook"]
-        if data["subProductName"] is not None and setting["subProductName"] != data["subProductName"]:
+        if "subProductName" in data and setting["subProductName"] != data["subProductName"]:
           #### Update Stripe Production ####
           stripe.api_key = setting["productionKey"]
           stripe.Product.modify(
@@ -233,7 +231,7 @@ class StripeController():
       if request.method == 'POST':
         data = request.get_json() 
         if "email" in data and "apiKey" in data and "token" in data and "name" in data:
-          client = StripeClientModel().findOneByEmail(queryParams["email"])
+          client = StripeClientModel().findOneByEmail(data["email"])
           if client["code"] == 200:
             return {"response":{'message': 'Usuario ya registrado'}, "code":400}
           setting = SettingModel().findOne(data["apiKey"])
@@ -241,20 +239,14 @@ class StripeController():
             setting = setting["response"]
             stripe.api_key = setting["productionKey"] if setting["inProduction"] else setting["developKey"]
             
-            response = stripe.PaymentMethod.create(
-              type = 'card',
-              card = {'token': data["token"]}
-            )
             stripeClient = {"settingId":data["apiKey"] , 
                             "email":data["email"], 
                             "name":data["name"], 
-                            "token": data["token"], 
-                            "paymentMethodId":response["id"]}
-            #print("PaymentMethod: "+str(response))
+                            "token": data["token"]}
             response = stripe.Customer.create(
               description = data["email"],
-              payment_method = response["id"],
-              name = data["name"]
+              name = data["name"],
+              source = data["token"]
             )
             stripeClient["customerId"] = response["id"]
             response = stripe.Subscription.create(
@@ -305,12 +297,13 @@ class StripeController():
           print("customer: " + event["data"]["object"]["customer"])
           return {"response":{'message': 'Success'}, "code":200}
         elif event["type"] == 'customer.subscription.created':
-          print('customer.subscription.deleted')
+          print('customer.subscription.created')
           print("customer: " + event["data"]["object"]["customer"])
           client = StripeClientModel().findOneByCustomerId(event["data"]["object"]["customer"])
           if client["code"] != 200:
             print("Error: "+ str(clien["response"]))
-          try: 
+          try:
+            print( "SuccessfulWebhook: " + str(setting["successfulWebhook"])) 
             r = requests.put(setting["successfulWebhook"], json={"correo":client["response"]["email"]})
             print( "Code successfulWebhook" + str(r.status_code))
           except (Exception) as e:
@@ -323,8 +316,9 @@ class StripeController():
           if client["code"] != 200:
             print("Error: "+ str(clien["response"]))
           try:   
+            print( "CancelWebhook: " + str(setting["cancelWebhook"])) 
             response = requests.put(setting["cancelWebhook"], json={"correo":client["response"]["email"]})
-            print( "Code cancelWebhook" + str(r.status_code))
+            print( "Code cancelWebhook: " + str(r.status_code))
           except (Exception) as e:
             print("Error cancelWebhook: " + str(e))
           return {"response":{'message': 'Success'}, "code":200}
