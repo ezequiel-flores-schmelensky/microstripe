@@ -30,7 +30,7 @@ def plan_curd(id):
 
 
 """ Create and Delete Subscription """
-@app.route('/custumer', methods=['POST'])
+@app.route('/customer', methods=['POST'])
 def customer_curd():
     response = StripeController().customer_crud(request)
     return jsonify(response['response']), response['code']
@@ -38,7 +38,7 @@ def customer_curd():
 
 """ Webhook """
 @app.route('/webhook/<apiKey>', methods=['POST'])
-def webhook():
+def webhook(apiKey):
     response = StripeController().webhook(request,apiKey)
     return jsonify(response['response']), response['code']
 

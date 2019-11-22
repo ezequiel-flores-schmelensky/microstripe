@@ -39,6 +39,18 @@ class StripeClientModel:
         except (ValueError, Exception) as e:
             app.logger.error('error salvando la data: ' + str(e))
             return self.makeResponse(400, str(e))
+
+    def findOneByCustomerId(self,data):
+        try:
+            response = mongo.db.stripe_clients.find_one({"customerId": data}, {"_id": 0})
+            if response is None:
+                return self.makeResponse(400, "It does not exist")
+            else:
+                return self.makeResponse(200, response)
+        
+        except (ValueError, Exception) as e:
+            app.logger.error('error salvando la data: ' + str(e))
+            return self.makeResponse(400, str(e))
     
     # Funcion para agregar un documento 
     def insertOne(self, data):
