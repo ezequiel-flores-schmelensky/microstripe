@@ -303,8 +303,8 @@ class StripeController():
           if client["code"] != 200:
             print("Error: "+ str(clien["response"]))
           try:
-            print( "SuccessfulWebhook: " + str(setting["successfulWebhook"])) 
-            r = requests.put(setting["successfulWebhook"], json={"correo":client["response"]["email"]})
+            print( "SuccessfulWebhook: " + str(setting["response"]["successfulWebhook"])) 
+            r = requests.put(setting["response"]["successfulWebhook"], json={"correo":client["response"]["email"]})
             print( "Code successfulWebhook" + str(r.status_code))
           except (Exception) as e:
             print("Error successfulWebhook: " + str(e))
@@ -316,8 +316,8 @@ class StripeController():
           if client["code"] != 200:
             print("Error: "+ str(client["response"]))
           try:   
-            print( "CancelWebhook: " + str(setting["cancelWebhook"])) 
-            response = requests.put(setting["cancelWebhook"], json={"correo":client["response"]["email"]})
+            print( "CancelWebhook: " + str(setting["response"]["cancelWebhook"])) 
+            r = requests.put(setting["response"]["cancelWebhook"], json={"correo":client["response"]["email"]})
             print( "Code cancelWebhook: " + str(r.status_code))
           except (Exception) as e:
             print("Error cancelWebhook: " + str(e))
