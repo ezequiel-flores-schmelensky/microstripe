@@ -31,6 +31,6 @@ requests==2.22.0
 scandir==1.10.0
 six==1.13.0
 stripe==2.39.0
-urllib3==1.25.6
+urllib3==1.25.8
 Werkzeug==0.16.0
 zipp==0.6.0
