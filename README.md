@@ -318,6 +318,3 @@ Adding Webhook
 
 Added Webhook 
 ![alt text](https://raw.github.com/supereze/microstripe/master/webhooks2.png)
-
-testing
-test2
